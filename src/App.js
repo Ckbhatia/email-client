@@ -8,7 +8,7 @@ import Header from './components/Header';
 function App() {
   const [selectedEmail, setSelectedEmail] = React.useState();
   const [operations, setOperations] = React.useState({ readedList: [], favorites: [] });
-  const [selectedFilter, setSelectedFilter] = React.useState();
+  const [selectedFilter, setSelectedFilter] = React.useState("");
 
   const { data: emailList, status: emailRequestStatus } = useFetch('https://flipkart-email-mock.now.sh', true)
   const { data: emailBody, status: emailBodyRequestStatus } = useFetch(`https://flipkart-email-mock.now.sh/?id=${selectedEmail?.id}`, selectedEmail?.id);
@@ -33,7 +33,7 @@ function App() {
 
   const handleSelectFilter = (event) => {
     const filter = event.target?.dataset?.filter;
-    if(filter === selectedFilter) {
+    if (filter === selectedFilter) {
       setSelectedFilter('');
     } else if (filter) {
       setSelectedFilter(filter);
@@ -52,7 +52,7 @@ function App() {
     if (selectedFilter === "favorites" && operations?.favorites.includes(email?.id)) return true;
     if (selectedFilter === "read" && operations?.readedList.includes(email?.id)) return true;
     if (selectedFilter === "unread" && !operations?.readedList.includes(email?.id)) return true;
-    if(selectedFilter === "") return true;
+    if (selectedFilter === "") return true;
     else {
       return false;
     }
